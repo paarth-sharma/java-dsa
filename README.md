@@ -1,1 +1,3 @@
-#This is my Uni DSA assignment assimilation repository, feel free to use it for java.
+# DSA done in Java
+
+This is repository is an assimilation of all my DSA assignments in uni, done in java.
