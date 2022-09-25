@@ -1,3 +1,4 @@
+import java.util.*;
 public class InsertNodes {
     Node head;
 
@@ -24,21 +25,32 @@ public class InsertNodes {
     }
 
     //function inserts node at specified position
-    void insertAfter(Node prev_node, int new_data){
-        // Check if the given node is null
-        if (prev_node == null){
-            System.out.println("The previous node can`t be null!");
-            return;
+    void insertPosition(int pos, int data) {
+        Node new_node = new Node(data);
+        new_node.data = data;
+        new_node.next = null;
+
+        // Invalid positions
+        if(pos < 1)
+            System.out.println("Invalid\n");
+
+            // inserting first node
+        else if(pos == 1){
+            new_node.next = head;
+            head = new_node;
         }
 
-        // 2 & 3 Allocate the node and assign the data
-        Node insert = new Node(new_data);
+        else
+        {
+            Node temp = head;
 
-        //4 Make the next of 'insert' as next of 'prev_node'
-        insert.next = prev_node.next;
-
-        //5 Make next of 'prev_node' as 'insert'
-        prev_node.next = insert;
+            // traverse till the current (pos-1)th node
+            while(--pos > 1){
+                temp = temp.next;
+            }
+            new_node.next= temp.next;
+            temp.next = new_node;
+        }
     }
 
     //function inserts node at last position
@@ -67,5 +79,55 @@ public class InsertNodes {
     /* 6. Change the next of last node */
     last.next = back;
     return;
+    }
+
+    void printList(){
+        Node tnode = head;
+        while (tnode != null){
+           System.out.print(tnode.data + " ");
+           tnode = tnode.next;
+       }
+       System.out.println();
+   }
+    public static void main(String[] args) {
+        Scanner key = new Scanner(System.in);
+
+        InsertNodes llist = new InsertNodes();
+        
+        System.out.println("Enter size of linked list: ");
+        int n = key.nextInt();
+
+        for(int i=0; i<n; i++){
+            System.out.println("1 to insert node at start of list");
+            System.out.println("2 to insert node at any position");
+            System.out.println("3 to insert node at end of list");
+            int choice = key.nextInt();
+            System.out.println("Enter element: ");
+            int ele = key.nextInt();
+
+            switch(choice){
+                case 1:
+                    llist.insertFirst(ele);
+                    System.out.println("The list is: ");
+                    llist.printList();
+                break;
+
+                case 2:
+                    System.out.println("What index ?: ");
+                    int pos = key.nextInt();
+                    llist.insertPosition(pos, ele);
+                    System.out.println("The list is: ");
+                    llist.printList();
+                break;
+
+                case 3:
+                    llist.insertLast(ele);
+                    System.out.println("The list is: ");
+                    llist.printList();
+
+            }
+        }
+        
+        key.close();
     }
 }
